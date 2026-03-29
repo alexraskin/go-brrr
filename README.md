@@ -49,6 +49,22 @@ client.Send(ctx, brrr.Notification{
 })
 ```
 
+### Multiple webhooks
+
+brrr.now gives you a shared webhook (all devices) and per-device webhooks. Create a client for each:
+
+```go
+all    := brrr.New("br_usr_shared_secret")
+iphone := brrr.New("br_dev_iphone_secret")
+mac    := brrr.New("br_dev_mac_secret")
+
+// Send to all devices
+all.SendMessage(ctx, "Hello everyone!")
+
+// Send to a specific device
+iphone.SendMessage(ctx, "Just your phone")
+```
+
 ### With slog
 
 ```go
