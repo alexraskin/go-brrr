@@ -2,6 +2,9 @@
 
 A Go SDK for [brrr.now](https://brrr.now) webhooks.
 
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/alexraskin/go-brrr) 
+[![Go Reference](https://pkg.go.dev/badge/github.com/alexraskin/go-brrr.svg)](https://pkg.go.dev/github.com/alexraskin/go-brrr)
+
 ## Install
 
 ```bash
