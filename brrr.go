@@ -56,6 +56,7 @@ type Notification struct {
 	ExpirationDate    *time.Time        `json:"expiration_date,omitempty"`
 	FilterCriteria    string            `json:"filter-criteria,omitempty"`
 	InterruptionLevel InterruptionLevel `json:"interruption-level,omitempty"`
+	ThreadID          string            `json:"thread_id,omitempty"`
 }
 
 // Client sends notifications through the brrr.now webhook API.
@@ -130,6 +131,6 @@ func (c *Client) SendMessage(ctx context.Context, message string) error {
 }
 
 // SendWithTitle is a shortcut to send a notification with a title and message.
-func (c *Client) SendWithTitle(ctx context.Context, title, message string) error {
+func (c *Client) SendWithTitle(ctx context.Context, title string, message string) error {
 	return c.Send(ctx, Notification{Title: title, Message: message})
 }
