@@ -11,9 +11,13 @@ import (
 )
 
 func Example() {
-	client := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0")
+	client, err := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-	err := client.SendMessage(context.Background(), "Hello world!")
+	err = client.SendMessage(context.Background(), "Hello world!")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -21,19 +25,27 @@ func Example() {
 
 func Example_withLogger() {
 	logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelDebug}))
-	client := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0", brrr.WithLogger(logger))
+	client, err := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0", brrr.WithLogger(logger))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-	err := client.SendWithTitle(context.Background(), "Alert", "Something happened!")
+	err = client.SendWithTitle(context.Background(), "Alert", "Something happened!")
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
 func Example_customNotification() {
-	client := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0")
+	client, err := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	exp := time.Date(2026, 4, 23, 9, 0, 0, 0, time.UTC)
-	err := client.Send(context.Background(), brrr.Notification{
+	err = client.Send(context.Background(), brrr.Notification{
 		Title:             "Coffee Machine Offline",
 		Message:           "The coffee machine is currently unreachable.",
 		Sound:             brrr.SoundUpbeatBells,

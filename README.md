@@ -77,7 +77,7 @@ client := brrr.New("br_usr_...", brrr.WithLogger(logger))
 
 ## Sounds
 
-`SoundDefault`, `SoundSystem`, `SoundBrrr`, `SoundBellRinging`, `SoundBubbleDing`, `SoundBubblySuccessDng`, `SoundCatMeow`, `SoundCalm1`, `SoundCalm2`, `SoundChaChing`, `SoundDogBarking`, `SoundDoorBell`, `SoundDuckQuack`, `SoundShortTripleBlink`, `SoundUpbeatBells`, `SoundWarmSoftError`
+`SoundDefault`, `SoundSystem`, `SoundBrrr`, `SoundBellRinging`, `SoundBubbleDing`, `SoundBubblySuccessDing`, `SoundCatMeow`, `SoundCalm1`, `SoundCalm2`, `SoundChaChing`, `SoundDogBarking`, `SoundDoorBell`, `SoundDuckQuack`, `SoundShortTripleBlink`, `SoundUpbeatBells`, `SoundWarmSoftError`
 
 ## License
 

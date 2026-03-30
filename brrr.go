@@ -18,22 +18,22 @@ var apiBaseURL = "https://api.brrr.now/v1/"
 type Sound string
 
 const (
-	SoundDefault          Sound = "default"
-	SoundSystem           Sound = "system"
-	SoundBrrr             Sound = "brrr"
-	SoundBellRinging      Sound = "bell_ringing"
-	SoundBubbleDing       Sound = "bubble_ding"
-	SoundBubblySuccessDng Sound = "bubbly_success_ding"
-	SoundCatMeow          Sound = "cat_meow"
-	SoundCalm1            Sound = "calm1"
-	SoundCalm2            Sound = "calm2"
-	SoundChaChing         Sound = "cha_ching"
-	SoundDogBarking       Sound = "dog_barking"
-	SoundDoorBell         Sound = "door_bell"
-	SoundDuckQuack        Sound = "duck_quack"
-	SoundShortTripleBlink Sound = "short_triple_blink"
-	SoundUpbeatBells      Sound = "upbeat_bells"
-	SoundWarmSoftError    Sound = "warm_soft_error"
+	SoundDefault           Sound = "default"
+	SoundSystem            Sound = "system"
+	SoundBrrr              Sound = "brrr"
+	SoundBellRinging       Sound = "bell_ringing"
+	SoundBubbleDing        Sound = "bubble_ding"
+	SoundBubblySuccessDing Sound = "bubbly_success_ding"
+	SoundCatMeow           Sound = "cat_meow"
+	SoundCalm1             Sound = "calm1"
+	SoundCalm2             Sound = "calm2"
+	SoundChaChing          Sound = "cha_ching"
+	SoundDogBarking        Sound = "dog_barking"
+	SoundDoorBell          Sound = "door_bell"
+	SoundDuckQuack         Sound = "duck_quack"
+	SoundShortTripleBlink  Sound = "short_triple_blink"
+	SoundUpbeatBells       Sound = "upbeat_bells"
+	SoundWarmSoftError     Sound = "warm_soft_error"
 )
 
 // InterruptionLevel controls how a notification is presented on the device.
@@ -80,7 +80,10 @@ func WithLogger(l *slog.Logger) Option {
 }
 
 // New creates a Client for the given webhook secret (e.g. "br_usr_a1b2c3d4e5f6g7h8i9j0").
-func New(secret string, opts ...Option) *Client {
+func New(secret string, opts ...Option) (*Client, error) {
+	if secret == "" {
+		return nil, fmt.Errorf("brrr: secret must not be empty")
+	}
 	c := &Client{
 		secret:     secret,
 		httpClient: http.DefaultClient,
@@ -89,7 +92,7 @@ func New(secret string, opts ...Option) *Client {
 	for _, o := range opts {
 		o(c)
 	}
-	return c
+	return c, nil
 }
 
 // Send sends a fully customizable notification.

@@ -92,3 +92,9 @@ func TestSendError(t *testing.T) {
 	}
 }
 
+func TestNewWithEmptySecret(t *testing.T) {
+	_, err := New("")
+	if err == nil {
+		t.Fatal("expected error for empty secret")
+	}
+}
