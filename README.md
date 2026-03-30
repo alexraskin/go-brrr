@@ -24,9 +24,12 @@ import (
 )
 
 func main() {
-	client := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0")
+	client, err := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	err := client.SendMessage(context.Background(), "Hello from Go!")
+	err = client.SendMessage(context.Background(), "Hello from Go!")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -36,20 +39,36 @@ func main() {
 ### With a title
 
 ```go
-client.SendWithTitle(ctx, "Deploy", "v1.2.3 is live")
+client, err := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0")
+if err != nil {
+	log.Fatal(err)
+}
+
+err = client.SendWithTitle(ctx, "Deploy", "v1.2.3 is live")
+if err != nil {
+	log.Fatal(err)
+}
 ```
 
 ### Full notification
 
 ```go
+client, err := brrr.New("br_usr_a1b2c3d4e5f6g7h8i9j0")
+if err != nil {
+	log.Fatal(err)
+}
+
 exp := time.Date(2026, 4, 23, 9, 0, 0, 0, time.UTC)
-client.Send(ctx, brrr.Notification{
+err = client.Send(ctx, brrr.Notification{
 	Title:             "Coffee Machine Offline",
 	Message:           "Morale is expected to drop.",
 	Sound:             brrr.SoundUpbeatBells,
 	InterruptionLevel: brrr.InterruptionTimeSensitive,
 	ExpirationDate:    &exp,
 })
+if err != nil {
+	log.Fatal(err)
+}
 ```
 
 ### Multiple webhooks
@@ -57,9 +76,20 @@ client.Send(ctx, brrr.Notification{
 brrr.now gives you a shared webhook (all devices) and per-device webhooks. Create a client for each:
 
 ```go
-all    := brrr.New("br_usr_shared_secret")
-iphone := brrr.New("br_dev_iphone_secret")
-mac    := brrr.New("br_dev_mac_secret")
+all, err := brrr.New("br_usr_shared_secret")
+if err != nil {
+	log.Fatal(err)
+}
+
+iphone, err := brrr.New("br_dev_iphone_secret")
+if err != nil {
+	log.Fatal(err)
+}
+
+mac, err := brrr.New("br_dev_mac_secret")
+if err != nil {
+	log.Fatal(err)
+}
 
 // Send to all devices
 all.SendMessage(ctx, "Hello everyone!")
@@ -72,12 +102,18 @@ iphone.SendMessage(ctx, "Just your phone")
 
 ```go
 logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
-client := brrr.New("br_usr_...", brrr.WithLogger(logger))
+
+client, err := brrr.New("br_usr_...", brrr.WithLogger(logger))
+if err != nil {
+	log.Fatal(err)
+}
 ```
 
 ## Sounds
+> [!NOTE]  
+> Only supported on iPhone and iPad.
 
-`SoundDefault`, `SoundSystem`, `SoundBrrr`, `SoundBellRinging`, `SoundBubbleDing`, `SoundBubblySuccessDing`, `SoundCatMeow`, `SoundCalm1`, `SoundCalm2`, `SoundChaChing`, `SoundDogBarking`, `SoundDoorBell`, `SoundDuckQuack`, `SoundShortTripleBlink`, `SoundUpbeatBells`, `SoundWarmSoftError`
+`SoundDefault`, `SoundSystem`, `SoundBrrr`, `SoundBellRinging`, `SoundBubbleDing`, `SoundBubblySuccessDing`, `SoundCatMeow`, `SoundCalm1`, `SoundCalm2`, `SoundChaChing`, `SoundDogBarking`, `SoundDoorBell`, `SoundDuckQuack`, `SoundShortTripleBlink`, `SoundUpbeatBells`, `SoundWarmSoftError` 
 
 ## License
 
